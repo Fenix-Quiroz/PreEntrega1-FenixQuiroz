@@ -1,6 +1,6 @@
 //Registro de mi pagina
 alert(
-  "¡Hola!. Si quieres entrar a nuestra tienda primero registrate y después inicia sesión por favor."
+  "¡Hola!. Si quieres entrar a nuestra tienda Gamer primero registrate y después inicia sesión por favor."
 );
 let user = prompt("Ingrese su nombre para registrarse.");
 let pass = parseInt(
@@ -13,11 +13,11 @@ alert("Registro exitoso. Inicia sesión para ingresar a la tienda");
 function login() {
   let ingreso = false;
 
-  for (let i = 3; i >= 0; i--) {
+  for (let i = 2; i >= 0; i--) {
     let savedUser = prompt("Ingresa tu nombre de usuario");
     let savedPass = parseInt(prompt("Ingrese su contraseña"));
     if (savedUser == user && savedPass == pass) {
-      alert("Bienvinido/a a nuestra tienda online.");
+      alert("Bienvinido/a a nuestra tienda Gamer online.");
       ingreso = true;
       break;
     } else {
@@ -30,69 +30,51 @@ function login() {
 
 //Productos de mi pagina
 let ingresoExitoso = login();
-if (ingresoExitoso) {
-  let tecladoPrecio = 20;
-  let mousePrecio = 5;
-  let monitorPrecio = 80;
-  let laptopPrecio = 390;
+if (!ingresoExitoso) {
+  alert("Has superado el limite de intentos ,registrarte e inicia secion nuevamente")
 
-  let opciones = prompt(
-    " Estos son nuestros productos: \n" +
-      "1-Teclado = $" +
-      tecladoPrecio +
-      "\n" +
-      "2-Mouse = $" +
-      mousePrecio +
-      "\n" +
-      "3-Monitor = $" +
-      monitorPrecio +
-      "\n" +
-      "4-.Laptop = $" +
-      laptopPrecio +
-      "\n" +
-      "5-Finalizar compra."
+}else{
+  // while
+let seguir = true;
+let productos = [];
+while (seguir) {
+  let producto = prompt("Ingrese el nombre del producto");
+  let precio = 200;
+  let cantidad = parseFloat(
+    prompt("Ingresa la cantidad de productos que desa comprar")
   );
-  while (opciones != "5") {
-    switch (opciones) {
-      case "1":
-        alert(
-          "Se agrego un teclado al carrito. \n Click en aceptar para elegir otra opción."
-        );
-        break;
-      case "2":
-        alert(
-          "Se agrego un mouse al carrito. \n Click en aceptar para elegir otra opción."
-        );
-        break;
-      case "3":
-        alert(
-          "Se agrego un monito al carrito. \n Click en aceptar para elegir otra opción."
-        );
-        break;
-      case "4":
-        alert(
-          "Se agrego una laptop al carrito. \n Click en aceptar para elegir otra opción."
-        );
-        break;
-      default:
-        alert("Lo sentimos esta opción no esta en nuestra tienda.");
-        break;
-    }
-    opciones = prompt(
-      " Estos son nuestros productos: \n" +
-        "1-Teclado = $" +
-        tecladoPrecio +
-        "\n" +
-        "2-Mouse = $" +
-        mousePrecio +
-        "\n" +
-        "3-Monitor = $" +
-        monitorPrecio +
-        "\n" +
-        "4-Laptop = $" +
-        laptopPrecio +
-        "\n" +
-        "5-Finalizar compra."
-    );
+
+  function Producto(producto, precio, cantidad) {
+    this.producto = producto;
+    this.precio = precio;
+    this.cantidad = cantidad;
+    this.resultado = 0;
+    this.sumarPrecios = () => {
+      this.resultado = this.precio * this.cantidad;
+    };
+  }
+
+  const prod = new Producto(producto, precio, cantidad);
+  prod.sumarPrecios();
+  productos.push(prod);
+
+  // logs
+  let str = "Tienes: \n";
+  let total =0;
+  for (const producto of productos) {
+    str = str + ` ${producto.cantidad} ${producto.producto}. Total a pagar s/. ${producto.resultado} \n`;
+    total += producto.resultado;
+  }
+
+  const resp = prompt(str + 
+    "El total general seria: "+ "s/." + total+ 
+    " \n Para salir ingresa 'salir' , para seguir eligiendo productos pulse 'aceptar'");
+
+  if (resp == "salir") {
+    seguir = false;
+    productos = []
   }
 }
+}
+
+
